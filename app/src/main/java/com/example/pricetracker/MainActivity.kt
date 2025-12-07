@@ -14,9 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.example.core.navigation.AppNavigator
 import com.example.feature.tracker.presentation.feed.FeedScreen
 import com.example.feature.tracker.presentation.feed.FeedViewModel
@@ -75,7 +78,17 @@ fun AppNavigation(
             )
         }
 
-        composable(route = Screen.Details.route,
+        composable(
+            route = Screen.Details.route,
+            arguments = listOf(navArgument("symbol") {
+                type = NavType.StringType
+                nullable = true
+            }),
+            deepLinks = listOf(
+                navDeepLink {
+                    uriPattern = "stocks://symbol/{symbol}"
+                }
+            )
         ) {
             val viewModel: DetailsViewModel = hiltViewModel()
             val uiState by viewModel.state.collectAsStateWithLifecycle()

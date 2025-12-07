@@ -1,8 +1,10 @@
 package com.example.feature.tracker.presentation.details
 
+import android.content.Intent
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.core.navigation.AppNavigator
 import com.example.core.navigation.NavigationCommand
 import com.example.feature.tracker.domain.repository.PriceTrackerRepository
@@ -25,7 +27,7 @@ class DetailsViewModel @Inject constructor(
     private val _state = MutableStateFlow(DetailsState())
     val state = _state.asStateFlow()
 
-    private val symbol: String = savedStateHandle.get<String>("symbol") ?: "Unknown"
+    private val symbol: String = getSymbolFromStateHandle(savedStateHandle)
 
     init {
         _state.update {
@@ -34,6 +36,22 @@ class DetailsViewModel @Inject constructor(
             )
         }
         observePriceUpdates()
+    }
+
+    private fun getSymbolFromStateHandle(handle: SavedStateHandle): String {
+        val navArgSymbol: String? = handle.get<String>("symbol")
+        if (navArgSymbol != null) {
+            return navArgSymbol
+        }
+
+        val deepLinkIntent: Intent? = handle.get(NavController.KEY_DEEP_LINK_INTENT)
+        val deepLinkUri = deepLinkIntent?.data
+        val deepLinkSymbol = deepLinkUri?.lastPathSegment
+        if (deepLinkSymbol != null) {
+            return deepLinkSymbol
+        }
+
+        return "Unknown"
     }
 
     private fun observePriceUpdates() {
