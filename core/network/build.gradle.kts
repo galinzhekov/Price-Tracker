@@ -37,6 +37,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.google.gson)
+
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.ktor.client.core)

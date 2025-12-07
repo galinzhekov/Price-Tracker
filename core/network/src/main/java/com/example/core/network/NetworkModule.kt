@@ -1,5 +1,6 @@
 package com.example.core.network
 
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,5 +25,11 @@ object NetworkModule {
     @WebSocketUrl
     fun provideWebSocketUrl(): String {
         return "wss://ws.postman-echo.com/raw"
+    }
+
+    @Provides
+    @Singleton
+    fun provideGson(): Gson {
+        return Gson()
     }
 }

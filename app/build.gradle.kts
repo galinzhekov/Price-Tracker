@@ -44,6 +44,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:tracker"))
+    implementation(project(":core:navigation"))
+
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
     kapt(libs.hilt.android.compiler)
