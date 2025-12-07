@@ -1,6 +1,9 @@
 package com.example.feature.tracker.presentation.feed
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,8 +25,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -31,6 +40,8 @@ import com.example.core.ui.components.FeedTopBar
 import com.example.core.ui.components.PriceChangeIndicator
 import com.example.core.ui.components.rememberPriceFormatter
 import com.example.feature.tracker.domain.model.Stock
+import kotlinx.coroutines.delay
+import java.math.BigDecimal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -96,7 +107,6 @@ fun StockList(
     }
 }
 
-
 @Composable
 fun StockRow(
     stock: Stock,
@@ -104,9 +114,30 @@ fun StockRow(
 ) {
     val priceFormatter = rememberPriceFormatter()
 
+    var flashState by remember { mutableStateOf(FlashState.TRANSPARENT) }
+
+    val animatedBackgroundColor by animateColorAsState(
+        targetValue = when (flashState) {
+            FlashState.TRANSPARENT -> Color.Transparent
+            FlashState.GREEN -> Color(0xFF2E7D32).copy(alpha = 0.3f)
+            FlashState.RED -> Color(0xFFC62828).copy(alpha = 0.3f)
+        },
+        animationSpec = tween(durationMillis = 200),
+        label = "Row Background Color"
+    )
+
+    LaunchedEffect(stock.price) {
+        if (stock.change != BigDecimal.ZERO) {
+            flashState = if (stock.change > BigDecimal.ZERO) FlashState.GREEN else FlashState.RED
+            delay(1000)
+            flashState = FlashState.TRANSPARENT
+        }
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .background(animatedBackgroundColor, shape = MaterialTheme.shapes.small)
             .clickable(onClick = onClick)
             .padding(horizontal = 8.dp, vertical = 16.dp)
             .animateContentSize(),
@@ -134,4 +165,10 @@ fun StockRow(
             PriceChangeIndicator(change = stock.change)
         }
     }
+}
+
+private enum class FlashState {
+    TRANSPARENT,
+    GREEN,
+    RED
 }
