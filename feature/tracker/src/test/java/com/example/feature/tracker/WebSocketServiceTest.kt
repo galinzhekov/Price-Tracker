@@ -1,8 +1,8 @@
 package com.example.feature.tracker
 
 import app.cash.turbine.test
-import com.example.feature.tracker.feed.data.remote.WebSocketEvent
-import com.example.feature.tracker.feed.data.remote.WebSocketService
+import com.example.feature.tracker.data.remote.WebSocketEvent
+import com.example.feature.tracker.data.remote.WebSocketService
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.websocket.WebSockets

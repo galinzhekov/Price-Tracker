@@ -1,6 +1,6 @@
-package com.example.feature.tracker.feed.domain.repository
+package com.example.feature.tracker.domain.repository
 
-import com.example.feature.tracker.feed.domain.model.Stock
+import com.example.feature.tracker.domain.model.Stock
 import kotlinx.coroutines.flow.Flow
 
 interface PriceTrackerRepository {

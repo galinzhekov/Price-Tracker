@@ -1,10 +1,10 @@
-package com.example.feature.tracker.feed.presentation
+package com.example.feature.tracker.presentation.feed
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.navigation.AppNavigator
 import com.example.core.navigation.NavigationCommand
-import com.example.feature.tracker.feed.domain.repository.PriceTrackerRepository
+import com.example.feature.tracker.domain.repository.PriceTrackerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -57,7 +57,7 @@ class FeedViewModel @Inject constructor(
             startObservingPrices()
         } else {
             priceTrackerRepository.stopPriceTracking()
-            _state.update { it.copy(isConnected = false, stocks = emptyList()) }
+            _state.update { it.copy(isConnected = false) }
         }
     }
 

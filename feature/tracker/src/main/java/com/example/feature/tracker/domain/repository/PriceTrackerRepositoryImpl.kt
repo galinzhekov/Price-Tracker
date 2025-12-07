@@ -1,8 +1,8 @@
-package com.example.feature.tracker.feed.domain.repository
+package com.example.feature.tracker.domain.repository
 
-import com.example.feature.tracker.feed.data.remote.WebSocketEvent
-import com.example.feature.tracker.feed.data.remote.WebSocketService
-import com.example.feature.tracker.feed.domain.model.Stock
+import com.example.feature.tracker.data.remote.WebSocketEvent
+import com.example.feature.tracker.data.remote.WebSocketService
+import com.example.feature.tracker.domain.model.Stock
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*

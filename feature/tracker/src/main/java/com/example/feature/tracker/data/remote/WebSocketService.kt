@@ -1,4 +1,4 @@
-package com.example.feature.tracker.feed.data.remote
+package com.example.feature.tracker.data.remote
 
 import com.example.core.network.WebSocketUrl
 import io.ktor.client.*

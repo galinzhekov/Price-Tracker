@@ -1,6 +1,6 @@
-package com.example.feature.tracker.feed.presentation
+package com.example.feature.tracker.presentation.feed
 
-import com.example.feature.tracker.feed.domain.model.Stock
+import com.example.feature.tracker.domain.model.Stock
 
 sealed class FeedEvent {
     data class OnSymbolClicked(val symbol: String) : FeedEvent()

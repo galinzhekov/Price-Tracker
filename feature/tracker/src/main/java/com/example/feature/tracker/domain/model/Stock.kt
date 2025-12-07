@@ -1,4 +1,4 @@
-package com.example.feature.tracker.feed.domain.model
+package com.example.feature.tracker.domain.model
 
 import java.math.BigDecimal
 

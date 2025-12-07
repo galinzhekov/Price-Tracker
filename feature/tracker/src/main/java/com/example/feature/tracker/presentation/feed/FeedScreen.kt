@@ -1,4 +1,4 @@
-package com.example.feature.tracker.feed.presentation
+package com.example.feature.tracker.presentation.feed
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import com.example.core.ui.components.FeedTopBar
 import com.example.core.ui.components.PriceChangeIndicator
 import com.example.core.ui.components.rememberPriceFormatter
-import com.example.feature.tracker.feed.domain.model.Stock
+import com.example.feature.tracker.domain.model.Stock
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

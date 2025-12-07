@@ -18,10 +18,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.core.navigation.AppNavigator
-import com.example.feature.tracker.feed.presentation.FeedScreen
-import com.example.feature.tracker.feed.presentation.FeedViewModel
+import com.example.feature.tracker.presentation.feed.FeedScreen
+import com.example.feature.tracker.presentation.feed.FeedViewModel
 import com.example.core.navigation.Screen
 import com.example.core.navigation.handleNavigation
+import com.example.feature.tracker.presentation.details.DetailsScreen
+import com.example.feature.tracker.presentation.details.DetailsViewModel
 import com.example.pricetracker.ui.theme.PriceTrackerTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -68,6 +70,16 @@ fun AppNavigation(
             val viewModel: FeedViewModel = hiltViewModel()
             val uiState by viewModel.state.collectAsStateWithLifecycle()
             FeedScreen(
+                state = uiState,
+                actions = viewModel::dispatch,
+            )
+        }
+
+        composable(route = Screen.Details.route,
+        ) {
+            val viewModel: DetailsViewModel = hiltViewModel()
+            val uiState by viewModel.state.collectAsStateWithLifecycle()
+            DetailsScreen(
                 state = uiState,
                 actions = viewModel::dispatch,
             )
